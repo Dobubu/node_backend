@@ -1,0 +1,2 @@
+### delete notes by id
+DELETE  http://localhost:3001/api/notes/4
