@@ -1,12 +1,17 @@
 // eslint-disable-next-line no-undef
 module.exports = {
   'env': {
+    'commonjs': true,
     'node': true,
     'es2021': true
   },
   'extends': 'eslint:recommended',
+  'globals': {
+    'Atomics': 'readonly',
+    'SharedArrayBuffer': 'readonly'
+  },
   'parserOptions': {
-    'ecmaVersion': 12
+    'ecmaVersion': 2018
   },
   'rules': {
     'indent': [

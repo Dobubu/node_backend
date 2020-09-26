@@ -1,5 +1,3 @@
-const config = require('./utils/config')
-
 // Part 3（C）MongoDb
 const mongoose = require('mongoose')
 
@@ -8,11 +6,9 @@ if ( process.argv.length<3 ) {
   process.exit(1)
 }
 
-// const password = process.argv[2]
-// const dbname = 'note-app'
+const password = process.argv[2]
 
-// const url = `mongodb+srv://fullstack:${password}@cluster0.ay01g.mongodb.net/${dbname}?retryWrites=true&w=majority`
-const url = config.MONGODB_URI
+const url = `mongodb+srv://fullstack:${password}@cluster0.ay01g.mongodb.net/note-app?retryWrites=true&w=majority`
 
 console.log('connecting to', url)
 
