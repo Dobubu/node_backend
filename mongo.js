@@ -1,15 +1,18 @@
+const config = require('./utils/config')
+
 // Part 3（C）MongoDb
 const mongoose = require('mongoose')
 
 if ( process.argv.length<3 ) {
-   console.log('Please provide the password as an argument: node mongo.js <password>')
+  console.log('Please provide the password as an argument: node mongo.js <password>')
   process.exit(1)
 }
 
-const password = process.argv[2]
-const dbname = 'note-app'
+// const password = process.argv[2]
+// const dbname = 'note-app'
 
-const url = `mongodb+srv://fullstack:${password}@cluster0.ay01g.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+// const url = `mongodb+srv://fullstack:${password}@cluster0.ay01g.mongodb.net/${dbname}?retryWrites=true&w=majority`
+const url = config.MONGODB_URI
 
 console.log('connecting to', url)
 
@@ -31,16 +34,16 @@ const note = new Note({
 
 // create
 // note.save().then(result => {
-//   console.log('note saved!')
+//   console.log('note saved!', result)
 //   mongoose.connection.close()
 // })
 
 // search
 Note.find({ important: false }).then(result => {
   result.forEach(note => {
-    console.log(note)
+    // console.log(note)
   })
-  console.log(result)
+  // console.log(result)
   mongoose.connection.close()
 })
 

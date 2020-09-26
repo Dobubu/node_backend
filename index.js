@@ -1,3 +1,5 @@
+const config = require('./utils/config')
+
 // Part 3（C）
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -38,26 +40,26 @@ const logger = (request, response, next) => {
 }
 app.use(logger)
 
-let notes = [
-  {
-    id: 1,
-    content: "HTML is easy",
-    date: "2019-05-30T17:30:31.098Z",
-    important: true
-  },
-  {
-    id: 2,
-    content: "Browser can execute only Javascript",
-    date: "2019-05-30T18:39:34.091Z",
-    important: false
-  },
-  {
-    id: 3,
-    content: "GET and POST are the most important methods of HTTP protocol",
-    date: "2019-05-30T19:20:14.298Z",
-    important: true
-  }
-]
+// let notes = [
+//   {
+//     id: 1,
+//     content: 'HTML is easy',
+//     date: '2019-05-30T17:30:31.098Z',
+//     important: true
+//   },
+//   {
+//     id: 2,
+//     content: 'Browser can execute only Javascript',
+//     date: '2019-05-30T18:39:34.091Z',
+//     important: false
+//   },
+//   {
+//     id: 3,
+//     content: 'GET and POST are the most important methods of HTTP protocol',
+//     date: '2019-05-30T19:20:14.298Z',
+//     important: true
+//   }
+// ]
 
 // Part 3（a）- 設置路由做事件處理
 app.get('/', (req, res) => {
@@ -70,19 +72,19 @@ app.get('/api/notes', (request, response) => {
   })
 })
 
-const generateId = () => {
-  const maxId = notes.length > 0
-    ? Math.max(...notes.map(n => n.id))
-    : 0
-  return maxId + 1
-}
+// const generateId = () => {
+//   const maxId = notes.length > 0
+//     ? Math.max(...notes.map(n => n.id))
+//     : 0
+//   return maxId + 1
+// }
 
 app.post('/api/notes', (request, response, next) => {
   const body = request.body
 
   if (!body.content) {
-    return response.status(400).json({ 
-      error: 'content missing' 
+    return response.status(400).json({
+      error: 'content missing'
     })
   }
 
@@ -97,7 +99,7 @@ app.post('/api/notes', (request, response, next) => {
     .then(savedNote => savedNote.toJSON())
     .then(savedAndFormattedNote => {
       response.json(savedAndFormattedNote)
-    }) 
+    })
     .catch(error => next(error))
 })
 
@@ -117,7 +119,7 @@ app.get('/api/notes/:id', (request, response, next) => {
     })
 })
 
-app.delete('/api/notes/:id', (request, response) => {
+app.delete('/api/notes/:id', (request, response, next) => {
   const id = request.params.id
 
   Note.findByIdAndRemove(id)
@@ -164,7 +166,7 @@ const errorHandler = (error, request, response, next) => {
 app.use(errorHandler)
 
 // Part 3（a）- 綁定 HTTP 服務器，分配給 app，並監聽發送到端口 3001 的 HTTP 請求
-const PORT = process.env.PORT
+const PORT = config.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
 })
