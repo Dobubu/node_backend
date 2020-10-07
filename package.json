@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "dev": "nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "build:ui": "rm -rf build && cd /Users/mischa/read/part1 && npm run build && cp -r build /Users/mischa/read/backend",
     "deploy": "git push heroku master",
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "logs:prod": "heroku logs --tail",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "author": "",
   "license": "ISC",
@@ -22,7 +22,12 @@
     "mongoose": "^5.10.4"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "eslint": "^7.9.0",
+    "jest": "^26.5.2",
     "nodemon": "^2.0.4"
+  },
+  "jest": {
+    "testEnvironment": "node"
   }
 }
