@@ -4,6 +4,8 @@ const config = require('./utils/config')
 const express = require('express')
 const app = express()
 
+require('express-async-errors')
+
 // Part 3（b）Same origin policy and CORS
 const cors = require('cors')
 const notesRouter = require('./controllers/notes')
